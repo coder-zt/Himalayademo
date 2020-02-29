@@ -1,0 +1,25 @@
+-- Merging decision tree log ---
+manifest
+ADDED from E:\CodeSpace\Android_space\thridPatry\MagicIndicator-master\MagicIndicator-master\magicindicator\src\main\AndroidManifest.xml:1:1-58
+INJECTED from E:\CodeSpace\Android_space\thridPatry\MagicIndicator-master\MagicIndicator-master\magicindicator\src\main\AndroidManifest.xml:1:1-58
+INJECTED from E:\CodeSpace\Android_space\thridPatry\MagicIndicator-master\MagicIndicator-master\magicindicator\src\main\AndroidManifest.xml:1:1-58
+	package
+		ADDED from E:\CodeSpace\Android_space\thridPatry\MagicIndicator-master\MagicIndicator-master\magicindicator\src\main\AndroidManifest.xml:1:11-55
+		INJECTED from E:\CodeSpace\Android_space\thridPatry\MagicIndicator-master\MagicIndicator-master\magicindicator\src\main\AndroidManifest.xml
+		INJECTED from E:\CodeSpace\Android_space\thridPatry\MagicIndicator-master\MagicIndicator-master\magicindicator\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from E:\CodeSpace\Android_space\thridPatry\MagicIndicator-master\MagicIndicator-master\magicindicator\src\main\AndroidManifest.xml:1:1-58
+uses-sdk
+INJECTED from E:\CodeSpace\Android_space\thridPatry\MagicIndicator-master\MagicIndicator-master\magicindicator\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from E:\CodeSpace\Android_space\thridPatry\MagicIndicator-master\MagicIndicator-master\magicindicator\src\main\AndroidManifest.xml
+INJECTED from E:\CodeSpace\Android_space\thridPatry\MagicIndicator-master\MagicIndicator-master\magicindicator\src\main\AndroidManifest.xml
+INJECTED from E:\CodeSpace\Android_space\thridPatry\MagicIndicator-master\MagicIndicator-master\magicindicator\src\main\AndroidManifest.xml
+INJECTED from E:\CodeSpace\Android_space\thridPatry\MagicIndicator-master\MagicIndicator-master\magicindicator\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from E:\CodeSpace\Android_space\thridPatry\MagicIndicator-master\MagicIndicator-master\magicindicator\src\main\AndroidManifest.xml
+		ADDED from E:\CodeSpace\Android_space\thridPatry\MagicIndicator-master\MagicIndicator-master\magicindicator\src\main\AndroidManifest.xml
+		INJECTED from E:\CodeSpace\Android_space\thridPatry\MagicIndicator-master\MagicIndicator-master\magicindicator\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from E:\CodeSpace\Android_space\thridPatry\MagicIndicator-master\MagicIndicator-master\magicindicator\src\main\AndroidManifest.xml
+		ADDED from E:\CodeSpace\Android_space\thridPatry\MagicIndicator-master\MagicIndicator-master\magicindicator\src\main\AndroidManifest.xml
+		INJECTED from E:\CodeSpace\Android_space\thridPatry\MagicIndicator-master\MagicIndicator-master\magicindicator\src\main\AndroidManifest.xml

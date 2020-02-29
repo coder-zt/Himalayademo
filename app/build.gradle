@@ -6,7 +6,7 @@ android {
     defaultConfig {
         applicationId "com.zhangtao.himalaya"
         minSdkVersion 15
-        targetSdkVersion 29
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -36,4 +36,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.okio:okio:2.4.3'
     implementation 'com.squareup.okhttp3:okhttp:4.4.0'
+    implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
+    implementation 'com.android.support:recyclerview-v7:27.0.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 }
