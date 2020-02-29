@@ -37,6 +37,7 @@ public class RecommendFragment extends BaseFragment implements IRecommendViewCal
     private RecommendListAdapter recommendListAdapter;
     private RecommendPresenter mRecommendPresenter;
 
+
     @Override
     protected View onSubViewLoaded(LayoutInflater inflater, ViewGroup container) {
         //view加载完成
