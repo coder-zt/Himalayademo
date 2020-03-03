@@ -62,7 +62,8 @@
                     android:layout_height="wrap_content"
                     android:text="234.4万"
                     android:textSize="7sp"
-                    android:textColor="#ff848484"/>
+                    android:textColor="#ff848484"
+                    android:layout_marginLeft="5dp"/>
 
             </LinearLayout>
 
@@ -84,7 +85,9 @@
                     android:layout_height="wrap_content"
                     android:text="23集"
                     android:textSize="7sp"
-                    android:textColor="#ff848484"/>
+                    android:textColor="#ff848484"
+                    android:layout_marginLeft="5dp"/>
+
 
             </LinearLayout>
 

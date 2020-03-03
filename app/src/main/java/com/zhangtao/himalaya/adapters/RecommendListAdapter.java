@@ -18,6 +18,8 @@ import java.util.List;
 
 public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdapter.InnerHolder> {
     private List<Album> mData = new ArrayList<>();
+    private OnItemClickListener mItemClickListener;
+
     @NonNull
     @Override
     public RecommendListAdapter.InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -31,6 +33,15 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
         //设置数据
         holder.itemView.setTag(position);
         holder.setData(mData.get(position));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mItemClickListener != null){
+                    int position = (int)v.getTag();
+                    mItemClickListener.onItemClick(position, mData.get(position));
+                }
+            }
+        });
     }
 
     @Override
@@ -51,12 +62,12 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
         notifyDataSetChanged();
     }
 
-    public class InnerHolder extends RecyclerView.ViewHolder {
-        public InnerHolder(@NonNull View itemView) {
+     class InnerHolder extends RecyclerView.ViewHolder {
+        InnerHolder(@NonNull View itemView) {
             super(itemView);
         }
 
-        public void setData(Album album) {
+        void setData(Album album) {
             //找到个控件设置数据
             //专辑封面
             ImageView albumCoverIv = itemView.findViewById(R.id.album_cover);
@@ -74,5 +85,12 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
             albumContenCountTv.setText(album.getIncludeTrackCount() + "");
             Picasso.with(itemView.getContext()).load(album.getCoverUrlLarge()).into(albumCoverIv);
         }
+    }
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.mItemClickListener = listener;
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(int index, Album album);
     }
 }

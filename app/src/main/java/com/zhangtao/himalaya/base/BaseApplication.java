@@ -1,14 +1,18 @@
 package com.zhangtao.himalaya.base;
 
 import android.app.Application;
+import android.os.Handler;
 
 import com.ximalaya.ting.android.opensdk.constants.DTransferConstants;
 import com.ximalaya.ting.android.opensdk.datatrasfer.CommonRequest;
 import com.zhangtao.himalaya.utils.LogUtil;
 
+
+
 public class BaseApplication extends Application {
 
     private static String TAG = "BaseApplication";
+    private static Handler sHandler = null;
 
     @Override
     public void onCreate() {
@@ -30,5 +34,11 @@ public class BaseApplication extends Application {
         LogUtil.init("MyLog" , false);
         //验证Application的作用
         //LogUtil.d(TAG,"我执行了" );
+
+        sHandler = new Handler();
+    }
+
+    public static Handler getsHandler(){
+        return sHandler;
     }
 }

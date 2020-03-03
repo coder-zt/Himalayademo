@@ -8,9 +8,12 @@ import android.util.AttributeSet;
 
 import androidx.appcompat.widget.AppCompatImageView;
 
+
 public class RoundRectIamgeView extends AppCompatImageView{
-    private float roundRatio = 0.2f;
+    private static float roundRatio = 0.2f;
     private Path path;
+    private final String TAG = "RoundRectIamgeView";
+
     public RoundRectIamgeView(Context context, AttributeSet attrs){
         super(context, attrs);
     }

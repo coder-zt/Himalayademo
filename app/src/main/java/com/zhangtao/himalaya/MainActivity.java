@@ -4,16 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 
 import com.zhangtao.himalaya.adapters.IndicatorAdapter;
 import com.zhangtao.himalaya.adapters.MainContentAdapter;
+import com.zhangtao.himalaya.base.BaseActivity;
+import com.zhangtao.himalaya.base.BaseApplication;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ResourceBundle;
+
+public class MainActivity extends BaseActivity {
 
     private final String TAG = "MainActivity";
     private MagicIndicator mMagicIndicator;
@@ -24,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //设置状态栏颜色
+        getWindow().setStatusBarColor(getResources().getColor(R.color.main_color));
         initView();
         InitEvent();
     }
