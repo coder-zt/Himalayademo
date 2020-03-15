@@ -1,6 +1,6 @@
 package com.zhangtao.himalaya.presents;
 
-import android.util.Log;
+import android.widget.Toast;
 
 import com.ximalaya.ting.android.opensdk.constants.DTransferConstants;
 import com.ximalaya.ting.android.opensdk.datatrasfer.CommonRequest;
@@ -8,7 +8,8 @@ import com.ximalaya.ting.android.opensdk.datatrasfer.IDataCallBack;
 import com.ximalaya.ting.android.opensdk.model.album.Album;
 import com.ximalaya.ting.android.opensdk.model.track.Track;
 import com.ximalaya.ting.android.opensdk.model.track.TrackList;
-import com.zhangtao.himalaya.adapters.MainContentAdapter;
+import com.zhangtao.himalaya.api.XimalayaApi;
+import com.zhangtao.himalaya.base.BaseApplication;
 import com.zhangtao.himalaya.interfaces.IAlbumDetailViewCallback;
 import com.zhangtao.himalaya.interfaces.IAlbumDetialPresenter;
 import com.zhangtao.himalaya.utils.Constants;
@@ -19,13 +20,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import okhttp3.internal.http2.ErrorCode;
-
 public class AlbumDetailPresenter implements IAlbumDetialPresenter {
 
     private Album mTargetAlbum = null;
     private List<IAlbumDetailViewCallback> mCallbacks = new ArrayList<>();
+    private List<Track> mTracks = new ArrayList<>();
     private final String TAG = "AlbumDetailPresenter";
+    private int mCurrenAlbumId = -1;
+    private int mCurrentPage = 0;
 
     private AlbumDetailPresenter(){}
 
@@ -49,34 +51,72 @@ public class AlbumDetailPresenter implements IAlbumDetialPresenter {
 
     @Override
     public void loadMore() {
-
+        mCurrentPage++;
+        doLoad(true);
     }
 
-    @Override
-    public void getAlbumDetail(int albumId, int page) {
-        //根据Id和page获取详情类容
-        Map<String, String> map = new HashMap<>();
-        map.put(DTransferConstants.ALBUM_ID, albumId + "");
-        map.put(DTransferConstants.SORT, "asc");
-        map.put(DTransferConstants.PAGE, page + "");
-        map.put(DTransferConstants.PAGE_SIZE, Constants.COUNT_DEFAULT + "");
-        CommonRequest.getTracks(map, new IDataCallBack<TrackList>() {
+    private void doLoad(final boolean isLoadMore){
+        //当前根据Id和page获取详情类容
+        XimalayaApi ximalayaAp = XimalayaApi.getInstance();
+        ximalayaAp.getAlbumDetail(new IDataCallBack<TrackList>() {
             @Override
             public void onSuccess(TrackList trackList) {
                 if (trackList != null) {
                     List<Track> tracks = trackList.getTracks();
-                    LogUtil.d(TAG, "List size --->" + tracks.size());
-
-
+                    if (isLoadMore) {
+                        mTracks.addAll(tracks);
+                        int size = tracks.size();
+                        handlerLoadMoreResult(size);
+                    }else{
+                        mTracks.addAll(0,tracks);
+                    }
+                    handlerAlbumDetailResult(mTracks);
                 }
             }
 
             @Override
             public void onError(int errorCode, String errorMsg) {
+                if (isLoadMore) {
+                    mCurrentPage--;
+                }
                 LogUtil.d(TAG, "error ccode ---->" + errorCode);
                 LogUtil.d(TAG, "errorMsg--->" + errorMsg);
+                hanlderError(errorCode, errorMsg);
             }
-        });
+        }, mCurrenAlbumId, mCurrentPage);
+    }
+
+    private void handlerLoadMoreResult(int size) {
+        for (IAlbumDetailViewCallback viewCallback : mCallbacks) {
+            viewCallback.onLoadMoreFinished(size);
+        }
+    }
+
+    @Override
+    public void getAlbumDetail(int albumId, int page) {
+        mTracks.clear();
+        this.mCurrenAlbumId = albumId;
+        this.mCurrentPage = page;
+        doLoad(false);
+
+    }
+
+    private void hanlderError(int errorCode, String errorMsg) {
+        for(IAlbumDetailViewCallback call : mCallbacks){
+            if(call != null){
+                call.onNetworkError(errorCode, errorMsg);
+            }
+        }
+    }
+
+    private void handlerAlbumDetailResult(List<Track> tracks) {
+        //更新UI
+        for(IAlbumDetailViewCallback call : mCallbacks){
+            if(call != null){
+                call.onDetailListLoaded(tracks);
+            }
+        }
+
     }
 
     @Override

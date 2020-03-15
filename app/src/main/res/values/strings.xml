@@ -1,8 +1,17 @@
 <resources>
-    <string name="app_name">Himalaya</string>
+    <string name="app_name">喜玛拉雅</string>
     <string-array name="indicator_title">
         <item>推荐</item>
         <item>订阅</item>
         <item>历史</item>
     </string-array>
+
+    <string-array name="paly_mode_name">
+        <item>顺序播放</item>
+        <item>随机播放</item>
+        <item>单曲循环</item>
+        <item>列表循环</item>
+    </string-array>
+    <string name="click_play_tips_text">点击播放</string>
+    <string name="listener_as_you_like_text">随便听听</string>
 </resources>

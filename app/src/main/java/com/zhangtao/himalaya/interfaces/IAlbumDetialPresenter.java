@@ -1,9 +1,11 @@
 package com.zhangtao.himalaya.interfaces;
 
+import com.zhangtao.himalaya.base.IBaesPresenter;
+
 /**
  * presenter层
  */
-public interface IAlbumDetialPresenter {
+public interface IAlbumDetialPresenter extends IBaesPresenter<IAlbumDetailViewCallback> {
 
     /**
      * 下拉刷新更多内容
@@ -21,16 +23,4 @@ public interface IAlbumDetialPresenter {
      * @param page
      */
     void getAlbumDetail(int albumId, int page);
-
-    /**
-     * 注册UI接口回调
-     * @param callback
-     */
-    void registerViewCallback(IAlbumDetailViewCallback callback);
-
-    /**
-     * 取消UI接口回调
-     * @param callback
-     */
-    void unRegisterViewCallback(IAlbumDetailViewCallback callback);
 }

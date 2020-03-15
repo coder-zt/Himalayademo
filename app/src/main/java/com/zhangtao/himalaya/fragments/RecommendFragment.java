@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.ximalaya.ting.android.opensdk.model.album.Album;
 
 import com.zhangtao.himalaya.DetailActivity;
@@ -86,7 +87,9 @@ public class RecommendFragment extends BaseFragment implements IRecommendViewCal
         recommendListAdapter = new RecommendListAdapter();
         recommendListAdapter.setOnItemClickListener(this);
         mRecommendRv.setAdapter(recommendListAdapter);
-
+        //滑动加载UI效果
+        TwinklingRefreshLayout twinklingRefreshLayout = rootView.findViewById(R.id.over_scroll_view);
+        twinklingRefreshLayout.setPureScrollModeOn();
         return  rootView;
     }
 

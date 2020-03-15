@@ -5,6 +5,7 @@ import com.ximalaya.ting.android.opensdk.datatrasfer.CommonRequest;
 import com.ximalaya.ting.android.opensdk.datatrasfer.IDataCallBack;
 import com.ximalaya.ting.android.opensdk.model.album.Album;
 import com.ximalaya.ting.android.opensdk.model.album.GussLikeAlbumList;
+import com.zhangtao.himalaya.api.XimalayaApi;
 import com.zhangtao.himalaya.interfaces.IRecommendPresenter;
 import com.zhangtao.himalaya.interfaces.IRecommendViewCallback;
 import com.zhangtao.himalaya.utils.Constants;
@@ -18,6 +19,8 @@ import java.util.Map;
 public class RecommendPresenter implements IRecommendPresenter {
     private String TAG = "RecommendPresenter";
     private List<IRecommendViewCallback> mCallback = new ArrayList<>();
+    private List<Album> currentRecommend = null;
+
     private RecommendPresenter(){}
 
     public static RecommendPresenter sInstance = null;
@@ -44,28 +47,28 @@ public class RecommendPresenter implements IRecommendPresenter {
     public void getRecommendList() {
         //封装数据
         updateLoading();
-            Map<String, String> map = new HashMap<String, String>();
-            map.put(DTransferConstants.LIKE_COUNT, Constants.RECOMMEND_COUNT + "");
-            CommonRequest.getGuessLikeAlbum(map, new IDataCallBack<GussLikeAlbumList>() {
-                @Override
-                public void onSuccess(GussLikeAlbumList gussLikeAlbumList) {
-                    //数据获取成功
-                    if (gussLikeAlbumList != null) {
-                        List<Album> albums = gussLikeAlbumList.getAlbumList();
-                        if (albums != null) {
-                            LogUtil.d(TAG, "SIZE ---> " + albums.size());
-                        }
-                        HandlerRecommendResult(albums);
+        XimalayaApi ximalayaApi = XimalayaApi.getInstance();
+        ximalayaApi.getRecommendList(new IDataCallBack<GussLikeAlbumList>() {
+            @Override
+            public void onSuccess(GussLikeAlbumList gussLikeAlbumList) {
+                //数据获取成功
+                if (gussLikeAlbumList != null) {
+                    List<Album> albums = gussLikeAlbumList.getAlbumList();
+                    if (albums != null) {
+                        LogUtil.d(TAG, "SIZE ---> " + albums.size());
                     }
+                    HandlerRecommendResult(albums);
                 }
-                @Override
-                public void onError(int i, String s) {
-                    //数据获取失败
-                    LogUtil.d(TAG,"error --> " + i);
-                    LogUtil.d(TAG,"errorMsg --> " + s);
-                    handlerError();
-                }
-            });
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                //数据获取失败
+                LogUtil.d(TAG,"error --> " + i);
+                LogUtil.d(TAG,"errorMsg --> " + s);
+                handlerError();
+            }
+        });
         }
 
     private void handlerError() {
@@ -86,11 +89,19 @@ public class RecommendPresenter implements IRecommendPresenter {
                     for (IRecommendViewCallback callback : mCallback) {
                         callback.onRecommendListLoaded(albums);
                     }
+                    this.currentRecommend = albums;
                 }
             }
         }
     }
 
+    /**
+     * 获取当前的推荐专辑列表
+     * @return 推荐专辑的列表，使用前要判空
+     */
+    public List<Album> getCurrentRecommend(){
+        return  currentRecommend;
+    }
     private void updateLoading(){
         for(IRecommendViewCallback callback : mCallback){
             callback.onLoading();

@@ -6,4 +6,6 @@ public class Constants {
     //获取详细内容曲目的条数
     public static final int COUNT_DEFAULT = 40;
 
+    //获取热词的数量
+    public static final int COUNT_HOT_WORLD = 20;
 }
